@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 70
+  controlID: 55
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 71
+  controlID: 56
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 50
+  controlID: 95
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.6038536, y: 0.0014110436, z: -0.001087797, w: -0.7971224}
     speed: 2
-    m_Value: {x: -0.6038396, y: 0.0014110107, z: -0.0010877717, w: -0.7971039}
+    m_Value: {x: -0.6038536, y: 0.0014110437, z: -0.001087797, w: -0.7971224}
   m_Size:
     m_Target: 10.328547
     speed: 2
@@ -539,23 +539,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a66efcff
-    m_LastClickedID: -233818
-    m_ExpandedIDs: b2c4feff86fbffff00000000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: red(Clone)
-      m_OriginalName: red(Clone)
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -158560
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
@@ -603,19 +603,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/GameObjects
+    - Assets/Script
   m_ViewMode: 1
   m_StartGridSize: 45
   m_LastFolders:
-  - Assets/GameObjects
+  - Assets/Script
   m_LastFoldersGridSize: 45
   m_LastProjectPath: C:\Users\Zheng\Desktop\Checkers\Checkers
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 922b0000
-    m_LastClickedID: 11154
-    m_ExpandedIDs: 0000000076270000922b000000ca9a3bffffff7f
+    m_SelectedIDs: 80270000
+    m_LastClickedID: 10112
+    m_ExpandedIDs: 000000007a2700009027000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -643,7 +643,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000076270000
+    m_ExpandedIDs: 000000007a27000090270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -674,18 +674,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 842700006e270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: black 1
-      m_OriginalName: black 1
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -85688
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
