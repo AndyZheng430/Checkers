@@ -11,5 +11,6 @@ public class move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 	}
 }
