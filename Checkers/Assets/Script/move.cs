@@ -11,6 +11,8 @@ public class move : MonoBehaviour {
 	public Vector3 pos; 
 	public Vector3 Pmove1;
 	public Vector3 Pmove2;
+	public Vector3 Pmove3;
+	public Vector3 Pmove4; 
 
 	// Use this for initialization
 	void Start () {
@@ -19,10 +21,7 @@ public class move : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonUp (0)) {
-			Destroy (m1);
-			Destroy (m2);
-		}
+		
 	}
 
 	void OnMouseDown(){
@@ -32,14 +31,23 @@ public class move : MonoBehaviour {
 		} else if (Input.GetMouseButtonDown (0) && gameObject.CompareTag ("Red")) {
 			Pmove1 = new Vector3 (pos.x - 1f, pos.y, pos.z + 1f);
 			Pmove2 = new Vector3 (pos.x + 1f, pos.y, pos.z + 1f);
-		} else {
-			Debug.Log ("null");
+		} else if (Input.GetMouseButtonDown (0) && gameObject.CompareTag ("RedKing")) {
+			Pmove1 = new Vector3 (pos.x - 1f, pos.y, pos.z + 1f);
+			Pmove2 = new Vector3 (pos.x + 1f, pos.y, pos.z + 1f);
+			Pmove3 = new Vector3 (pos.x - 1f, pos.y, pos.z - 1f);
+			Pmove4 = new Vector3 (pos.x + 1f, pos.y, pos.z - 1f);
+		} else if (Input.GetMouseButtonDown (0) && gameObject.CompareTag ("BlackKing")) {
+			Pmove1 = new Vector3 (pos.x - 1f, pos.y, pos.z + 1f);
+			Pmove2 = new Vector3 (pos.x + 1f, pos.y, pos.z + 1f);
+			Pmove3 = new Vector3 (pos.x - 1f, pos.y, pos.z - 1f);
+			Pmove4 = new Vector3 (pos.x + 1f, pos.y, pos.z - 1f);
 		}
 		if (Pmove1.x >= 0 && Pmove1.x < 8 && Pmove1.z >= 0 && Pmove1.z < 8 && Input.GetMouseButtonDown (0)) {
-			m1 = (GameObject)(Instantiate (RLight, Pmove1, Quaternion.identity));
+			m1 = (GameObject)(Instantiate (RLight, Pmove1, Quaternion.identity));	
 		} 
 		if (Pmove2.x >= 0 && Pmove2.x < 8 && Pmove2.z >= 0 && Pmove2.z < 8 && Input.GetMouseButtonDown (0)) {
 			m2 = (GameObject)(Instantiate (RLight, Pmove2, Quaternion.identity));
 		}
 	}
+
 }
