@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 55
+  controlID: 51
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 56
+  controlID: 52
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -422,13 +422,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.6038536, y: 0.0014110436, z: -0.001087797, w: -0.7971224}
+    m_Target: {x: 0.23690498, y: -0.54155964, z: 0.16238576, w: 0.7901155}
     speed: 2
-    m_Value: {x: -0.6038536, y: 0.0014110437, z: -0.001087797, w: -0.7971224}
+    m_Value: {x: 0.23689757, y: -0.5415427, z: 0.1623807, w: 0.7900908}
   m_Size:
-    m_Target: 10.328547
+    m_Target: 10.255161
     speed: 2
-    m_Value: 10.328547
+    m_Value: 10.255161
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -507,7 +507,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 414
-    width: 538
+    width: 636
     height: 284
   m_PersistentViewDataDictionary: {fileID: 0}
 --- !u!114 &17
@@ -541,7 +541,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 9efbffff00000000
+    m_ExpandedIDs: 84fbffff000000009e280000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -603,18 +603,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Script
+    - Assets/GameObjects
   m_ViewMode: 1
   m_StartGridSize: 45
   m_LastFolders:
-  - Assets/Script
+  - Assets/GameObjects
   m_LastFoldersGridSize: 45
   m_LastProjectPath: C:\Users\Zheng\Desktop\Checkers\Checkers
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 80270000
-    m_LastClickedID: 10112
+    m_SelectedIDs: 90270000
+    m_LastClickedID: 10128
     m_ExpandedIDs: 000000007a2700009027000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -674,18 +674,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 842700006e270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: black
+      m_OriginalName: black
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 10130
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
