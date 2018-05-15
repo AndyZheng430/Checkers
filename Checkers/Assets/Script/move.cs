@@ -27,19 +27,19 @@ public class move : MonoBehaviour {
 		layermask = ~layermask;
 
 		RaycastHit hit;
-		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Infinity, layermask)) {
+		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
 			Debug.Log ("Hit1");
 		}
-		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Infinity, layermask)) {
+		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
 			Debug.Log ("Hit2");
 		}
-		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Infinity, layermask)) {
+		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
 			Debug.Log ("Hit3");
 		}
-		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Infinity, layermask)) {
+		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0	, 1)) * hit.distance, Color.white);
 			Debug.Log ("Hit4");
 		}
