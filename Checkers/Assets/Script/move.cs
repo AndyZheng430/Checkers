@@ -14,11 +14,16 @@ public class move : MonoBehaviour {
 	public Vector3 Pmove3;
 	public Vector3 Pmove4; 
 
-
+	public bool B = false;
+	public bool R = false;
 
 	// Use this for initialization
 	void Start () {
 		pos = gameObject.transform.position;
+		if (gameObject.CompareTag ("Red"))
+			R = true;
+		else
+			B = true;
 	}
 	
 	// Update is called once per frame
@@ -30,7 +35,14 @@ public class move : MonoBehaviour {
 		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
 			Debug.Log ("Hit1");
-
+			if (hit.collider.gameObject.CompareTag("Red")) {
+				if (B) {
+					
+				}
+			}
+			if (hit.collider.gameObject.CompareTag ("Black")) {
+				
+			}
 		}
 		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
@@ -49,7 +61,7 @@ public class move : MonoBehaviour {
 		}
 	}
 
-	void OnMouseDown(){
+	/*void OnMouseDown(){
 		if (Input.GetMouseButtonDown (0) && gameObject.CompareTag ("Black")) {
 			Pmove1 = new Vector3 (pos.x - 1f, pos.y, pos.z - 1f);
 			Pmove2 = new Vector3 (pos.x + 1f, pos.y, pos.z - 1f);
@@ -67,12 +79,12 @@ public class move : MonoBehaviour {
 			Pmove3 = new Vector3 (pos.x - 1f, pos.y, pos.z - 1f);
 			Pmove4 = new Vector3 (pos.x + 1f, pos.y, pos.z - 1f);
 		}
-		/*if (Pmove1.x >= 0 && Pmove1.x < 8 && Pmove1.z >= 0 && Pmove1.z < 8 && Input.GetMouseButtonDown (0)) {
+		if (Pmove1.x >= 0 && Pmove1.x < 8 && Pmove1.z >= 0 && Pmove1.z < 8 && Input.GetMouseButtonDown (0)) {
 			m1 = (GameObject)(Instantiate (RLight, Pmove1, Quaternion.identity));	
 		} 
 		if (Pmove2.x >= 0 && Pmove2.x < 8 && Pmove2.z >= 0 && Pmove2.z < 8 && Input.GetMouseButtonDown (0)) {
 			m2 = (GameObject)(Instantiate (RLight, Pmove2, Quaternion.identity));
-		}*/
-	}
+		}
+	}*/
 
 }
