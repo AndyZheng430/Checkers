@@ -49,17 +49,44 @@ public class move : MonoBehaviour {
 		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
 			Debug.Log ("Hit2");
-
+			if (hit.collider.gameObject.CompareTag("Red")) {
+				if (B && pos.x + 2 < 8 && pos.x + 2 >= 0 && pos.z + 2 < 8 && pos.z + 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x + 2, pos.y, pos.z + 2);
+				} 
+			}
+			if (hit.collider.gameObject.CompareTag ("Black")) {
+				if (R && pos.x + 2 < 8 && pos.x + 2 >= 0 && pos.z + 2 < 8 && pos.z + 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x + 2, pos.y, pos.z + 2);
+				}
+			}
 		}
 		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
 			Debug.Log ("Hit3");
-
+			if (hit.collider.gameObject.CompareTag("Red")) {
+				if (B && pos.x + 2 < 8 && pos.x + 2 >= 0 && pos.z - 2 < 8 && pos.z - 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x + 2, pos.y, pos.z - 2);
+				} 
+			}
+			if (hit.collider.gameObject.CompareTag ("Black")) {
+				if (R && pos.x + 2 < 8 && pos.x + 2 >= 0 && pos.z - 2 < 8 && pos.z - 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x + 2, pos.y, pos.z - 2);
+				}
+			}
 		}
 		if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt(2), layermask)) {
 			Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0	, 1)) * hit.distance, Color.white);
 			Debug.Log ("Hit4");
-
+			if (hit.collider.gameObject.CompareTag("Red")) {
+				if (B && pos.x - 2 < 8 && pos.x - 2 >= 0 && pos.z + 2 < 8 && pos.z + 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x - 2, pos.y, pos.z + 2);
+				} 
+			}
+			if (hit.collider.gameObject.CompareTag ("Black")) {
+				if (R && pos.x - 2 < 8 && pos.x - 2 >= 0 && pos.z + 2 < 8 && pos.z + 2 >= 0) {
+					Pmove1 = new Vector3 (pos.x - 2, pos.y, pos.z + 2);
+				}
+			}
 		}
 	}
 

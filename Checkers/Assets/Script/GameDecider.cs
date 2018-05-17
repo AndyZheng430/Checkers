@@ -4,66 +4,54 @@ using UnityEngine;
 
 public class GameDecider : MonoBehaviour {
 
-	//BOARD GENERATION AND PIECE GENERATION
-	public GameObject B_Tile;
-	public GameObject R_Tile;
-	public GameObject R_Piece;
-	public GameObject B_Piece;
+	//array of red pieces 
+	public GameObject[] Reds;
+	public GameObject[] RedKings;
+	//array of black pieces 
+	public GameObject[] Blacks; 
+	public GameObject[] BlackKings; 
+
+	//total value of pieces
+	//normal pieces are worth 1, kings are worth 10
+	public int RPValue = 0;
+	public int BPValue = 0; 
+
+	//total points for red after evaluation
+	public int RTotal = 0;
+	//total points for black after evaluation
+	public int BTotal = 0;
 
 	// Use this for initialization
 	void Start () {
-		GenerateBoard (); //BOARD&PIECES GENERATES
+		Reds = GameObject.FindGameObjectsWithTag ("Red");
+		RedKings = GameObject.FindGameObjectsWithTag ("RedK");
+		Blacks = GameObject.FindGameObjectsWithTag ("Black");
+		BlackKings = GameObject.FindGameObjectsWithTag ("BlackK");
 	}
 
 	// Update is called once per frame
 	void Update () {
+		//constantly updates arrays to show pieces left
+		Reds = GameObject.FindGameObjectsWithTag ("Red");
+		RedKings = GameObject.FindGameObjectsWithTag ("RedK");
+		Blacks = GameObject.FindGameObjectsWithTag ("Black");
+		BlackKings = GameObject.FindGameObjectsWithTag ("BlackK");
 
 	}
+		
+	void Evaluation(int PlayTurn){
+		// takes values of red pieces on the board
+		RPValue = Reds.Length + 10*(RedKings.Length); 
+		// takes values of black pieces on the board
+		BPValue = Blacks.Length + 10*(BlackKings.Length); 
+		if (PlayTurn == 0) { // evaluates for red
+			//evaluation of difference between red and black pieces
+			RTotal = RPValue - BPValue;
 
+		} else if (PlayTurn == 1) { // evaluates for black
+			//evaluation of difference between black and red pieces
+			BTotal = BPValue - RPValue;
 
-
-	void GenerateBoard(){ //generate board and pieces
-		for (int x = 0; x < 8; x++) {
-			if (x % 2 == 0) {
-				for (int y = 0; y < 8; y++) {
-					//generate tiles
-					if (y % 2 == 0) {
-						GameObject Bt = (GameObject)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
-						Bt.transform.SetParent (this.transform);
-					}
-					if (y % 2 == 1) {
-						GameObject Rt = (GameObject)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
-						Rt.transform.SetParent (this.transform);
-						//generate pieces
-						if (y == 1) {
-							Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
-						}
-						if (y>4) {
-							Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
-						}
-					}
-				}
-			}
-			if (x % 2 == 1) {
-				for (int y = 0; y < 8; y++) {
-					//generate tiles
-					if (y % 2 == 0) {
-						GameObject Rt = (GameObject)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
-						Rt.transform.SetParent (this.transform);
-						//generate pieces
-						if (y < 3) {
-							Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
-						}
-						if (y == 6) {
-							Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
-						}
-					}
-					if (y % 2 == 1) {
-						GameObject Bt = (GameObject)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
-						Bt.transform.SetParent (this.transform);
-					}
-				}
-			}
 		}
 	}
 }
