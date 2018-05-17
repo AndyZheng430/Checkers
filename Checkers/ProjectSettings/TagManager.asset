@@ -7,6 +7,8 @@ TagManager:
   - Red
   - Black
   - move
+  - RedK
+  - BlackK
   layers:
   - Default
   - TransparentFX

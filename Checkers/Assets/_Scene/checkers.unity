@@ -268,6 +268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241897458}
   - component: {fileID: 1241897457}
+  - component: {fileID: 1241897459}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -303,3 +304,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1241897459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1241897456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62dfcce645e8c5b41bcf540ff150ab70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Reds: []
+  RedKings: []
+  Blacks: []
+  BlackKings: []
+  RPValue: 0
+  BPValue: 0
+  RTotal: 0
+  BTotal: 0
