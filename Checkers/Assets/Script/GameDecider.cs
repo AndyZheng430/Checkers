@@ -40,6 +40,11 @@ public class GameDecider : MonoBehaviour {
 	}
 		
 	void Evaluation(int PlayTurn){
+		int layerMask = 1 << 8;
+		layerMask =~ layerMask;
+
+		RaycastHit hit;
+
 		// takes values of red pieces on the board
 		RPValue = Reds.Length + 10*(RedKings.Length); 
 		// takes values of black pieces on the board
@@ -47,11 +52,139 @@ public class GameDecider : MonoBehaviour {
 		if (PlayTurn == 0) { // evaluates for red
 			//evaluation of difference between red and black pieces
 			RTotal = RPValue - BPValue;
-
+			foreach (GameObject r in Reds) {
+				//evaluate distance from end of board for red
+				RTotal += Mathf.RoundToInt(r.transform.position.z);
+				//evaluates defense 
+				if (r.transform.position.x == 0 || r.transform.position.x == 7 || r.transform.position.z == 0) {
+					RTotal += 2;
+				} else {
+					BR_Eval (0);
+					BL_Eval (0);
+					TL_Eval (0);
+					TR_Eval (0);
+				}
+			}
 		} else if (PlayTurn == 1) { // evaluates for black
 			//evaluation of difference between black and red pieces
 			BTotal = BPValue - RPValue;
+			foreach (GameObject b in Blacks) {
+				//evaluate distance from end of board for black
+				BTotal += 7 - Mathf.RoundToInt(b.transform.position.z);
+				//evaluates defense
+				if (b.transform.position.x == 0 || b.transform.position.x == 7 || b.transform.position.z == 7) {
+					BTotal += 2;
+				} else {
+					BR_Eval (1);
+					BL_Eval (1);
+					TL_Eval (1);
+					TR_Eval (1);
+				}
+			}
+			foreach (GameObject bk in BlackKings) {
+				
+			}
 
+		}
+	}
+	//1,0,1
+	void TR_Eval(int k, int ){ 
+		int layerMask = 1 << 8;
+		layerMask =~ layerMask;
+		RaycastHit hit;
+		if(k==0){
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
+					RTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
+					RTotal -= 1;
+				} 
+			}
+		}else if (k == 1) {
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
+					BTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
+					BTotal -= 1;
+				} 
+			}
+		}
+	}
+	//1,0,-1
+	void BR_Eval(int k){
+		int layerMask = 1 << 8;
+		layerMask =~ layerMask;
+		RaycastHit hit;
+		if(k==0){
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
+					RTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
+					RTotal -= 1;
+				} 
+			}
+		}else if (k == 1) {
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
+					BTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
+					BTotal -= 1;
+				} 
+			}
+		}
+	}
+	//-1,0,1
+	void TL_Eval(int k){
+		int layerMask = 1 << 8;
+		layerMask =~ layerMask;
+		RaycastHit hit;
+		if(k==0){
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
+					RTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
+					RTotal -= 1;
+				} 
+			}
+		}else if (k == 1) {
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
+					BTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
+					BTotal -= 1;
+				} 
+			}
+		}
+	}
+	//-1,0,-1
+	void BL_Eval(int k){
+		int layerMask = 1 << 8;
+		layerMask =~ layerMask;
+		RaycastHit hit;
+		if (k == 0) {
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
+					RTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
+					RTotal -= 1;
+				} 
+			}
+		} else if (k == 1) {
+			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
+				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
+				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
+					BTotal += 1;
+				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
+					BTotal -= 1;
+				} 
+			}
 		}
 	}
 }
