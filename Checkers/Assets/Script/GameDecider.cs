@@ -65,6 +65,16 @@ public class GameDecider : MonoBehaviour {
 					TR_Eval (0);
 				}
 			}
+			foreach (GameObject rk in RedKings) {
+				if (rk.transform.position.x == 0 || rk.transform.position.x == 7 || rk.transform.position.z == 0) {
+					RTotal += 2;
+				} else {
+					BR_Eval (0);
+					BL_Eval (0);
+					TL_Eval (0);
+					TR_Eval (0);
+				}
+			}
 		} else if (PlayTurn == 1) { // evaluates for black
 			//evaluation of difference between black and red pieces
 			BTotal = BPValue - RPValue;
@@ -82,13 +92,20 @@ public class GameDecider : MonoBehaviour {
 				}
 			}
 			foreach (GameObject bk in BlackKings) {
-				
+				if (bk.transform.position.x == 0 || bk.transform.position.x == 7 || bk.transform.position.z == 7) {
+					BTotal += 2;
+				} else {
+					BR_Eval (1);
+					BL_Eval (1);
+					TL_Eval (1);
+					TR_Eval (1);
+				}
 			}
 
 		}
 	}
 	//1,0,1
-	void TR_Eval(int k, int ){ 
+	void TR_Eval(int k){ 
 		int layerMask = 1 << 8;
 		layerMask =~ layerMask;
 		RaycastHit hit;
