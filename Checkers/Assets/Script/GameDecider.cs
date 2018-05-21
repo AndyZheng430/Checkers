@@ -7,6 +7,7 @@ public class GameDecider : MonoBehaviour {
 	//array of red pieces 
 	public GameObject[] Reds;
 	public GameObject[] RedKings;
+
 	//array of black pieces 
 	public GameObject[] Blacks; 
 	public GameObject[] BlackKings; 
@@ -18,6 +19,7 @@ public class GameDecider : MonoBehaviour {
 
 	//total points for red after evaluation
 	public int RTotal = 0;
+
 	//total points for black after evaluation
 	public int BTotal = 0;
 
@@ -40,11 +42,6 @@ public class GameDecider : MonoBehaviour {
 	}
 		
 	void Evaluation(int PlayTurn){
-		int layerMask = 1 << 8;
-		layerMask =~ layerMask;
-
-		RaycastHit hit;
-
 		// takes values of red pieces on the board
 		RPValue = Reds.Length + 10*(RedKings.Length); 
 		// takes values of black pieces on the board
@@ -59,20 +56,20 @@ public class GameDecider : MonoBehaviour {
 				if (r.transform.position.x == 0 || r.transform.position.x == 7 || r.transform.position.z == 0) {
 					RTotal += 2;
 				} else {
-					BR_Eval (0);
-					BL_Eval (0);
-					TL_Eval (0);
-					TR_Eval (0);
+					BR_Eval (0, 1);
+					BL_Eval (0, 1);
+					TL_Eval (0, 1);
+					TR_Eval (0, 1);
 				}
 			}
 			foreach (GameObject rk in RedKings) {
 				if (rk.transform.position.x == 0 || rk.transform.position.x == 7 || rk.transform.position.z == 0) {
-					RTotal += 2;
+					RTotal += 4;
 				} else {
-					BR_Eval (0);
-					BL_Eval (0);
-					TL_Eval (0);
-					TR_Eval (0);
+					BR_Eval (0, 2);
+					BL_Eval (0, 2);
+					TL_Eval (0, 2);
+					TR_Eval (0, 2);
 				}
 			}
 		} else if (PlayTurn == 1) { // evaluates for black
@@ -85,27 +82,27 @@ public class GameDecider : MonoBehaviour {
 				if (b.transform.position.x == 0 || b.transform.position.x == 7 || b.transform.position.z == 7) {
 					BTotal += 2;
 				} else {
-					BR_Eval (1);
-					BL_Eval (1);
-					TL_Eval (1);
-					TR_Eval (1);
+					BR_Eval (1, 1);
+					BL_Eval (1, 1);
+					TL_Eval (1, 1);
+					TR_Eval (1, 1);
 				}
 			}
 			foreach (GameObject bk in BlackKings) {
 				if (bk.transform.position.x == 0 || bk.transform.position.x == 7 || bk.transform.position.z == 7) {
-					BTotal += 2;
+					BTotal += 4;
 				} else {
-					BR_Eval (1);
-					BL_Eval (1);
-					TL_Eval (1);
-					TR_Eval (1);
+					BR_Eval (1, 2);
+					BL_Eval (1, 2);
+					TL_Eval (1, 2);
+					TR_Eval (1, 2);
 				}
 			}
 
 		}
 	}
 	//1,0,1
-	void TR_Eval(int k){ 
+	void TR_Eval(int k, int value){ 
 		int layerMask = 1 << 8;
 		layerMask =~ layerMask;
 		RaycastHit hit;
@@ -113,24 +110,24 @@ public class GameDecider : MonoBehaviour {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
-					RTotal += 1;
+					RTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
-					RTotal -= 1;
+					RTotal -= 1 * value;
 				} 
 			}
 		}else if (k == 1) {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, 1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
-					BTotal += 1;
+					BTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
-					BTotal -= 1;
+					BTotal -= 1 * value;
 				} 
 			}
 		}
 	}
 	//1,0,-1
-	void BR_Eval(int k){
+	void BR_Eval(int k, int value){
 		int layerMask = 1 << 8;
 		layerMask =~ layerMask;
 		RaycastHit hit;
@@ -138,24 +135,24 @@ public class GameDecider : MonoBehaviour {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
-					RTotal += 1;
+					RTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
-					RTotal -= 1;
+					RTotal -= 1 * value;
 				} 
 			}
 		}else if (k == 1) {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (1, 0, -1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
-					BTotal += 1;
+					BTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
-					BTotal -= 1;
+					BTotal -= 1 * value;
 				} 
 			}
 		}
 	}
 	//-1,0,1
-	void TL_Eval(int k){
+	void TL_Eval(int k, int value){
 		int layerMask = 1 << 8;
 		layerMask =~ layerMask;
 		RaycastHit hit;
@@ -163,24 +160,24 @@ public class GameDecider : MonoBehaviour {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
-					RTotal += 1;
+					RTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
-					RTotal -= 1;
+					RTotal -= 1 * value;
 				} 
 			}
 		}else if (k == 1) {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, 1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
-					BTotal += 1;
+					BTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
-					BTotal -= 1;
+					BTotal -= 1 * value;
 				} 
 			}
 		}
 	}
 	//-1,0,-1
-	void BL_Eval(int k){
+	void BL_Eval(int k, int value){
 		int layerMask = 1 << 8;
 		layerMask =~ layerMask;
 		RaycastHit hit;
@@ -188,18 +185,18 @@ public class GameDecider : MonoBehaviour {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Red")||hit.collider.gameObject.CompareTag ("RedK")) {
-					RTotal += 1;
+					RTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Black")||hit.collider.gameObject.CompareTag ("BlackK")) {
-					RTotal -= 1;
+					RTotal -= 1 * value;
 				} 
 			}
 		} else if (k == 1) {
 			if (Physics.Raycast (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)), out hit, Mathf.Sqrt (2), layerMask)) {
 				Debug.DrawRay (transform.position, transform.TransformDirection (new Vector3 (-1, 0, -1)) * hit.distance, Color.white);
 				if (hit.collider.gameObject.CompareTag ("Black") || hit.collider.gameObject.CompareTag ("BlackK")) {
-					BTotal += 1;
+					BTotal += 1 * value;
 				} else if (hit.collider.gameObject.CompareTag ("Red") || hit.collider.gameObject.CompareTag ("RedK")) {
-					BTotal -= 1;
+					BTotal -= 1 * value;
 				} 
 			}
 		}
