@@ -9,14 +9,21 @@ public class GenBoard : MonoBehaviour {
 	public GameObject R_Piece;
 	public GameObject B_Piece;
 
+	public Vector2 mouseover;
+
 	// Use this for initialization
 	void Start () {
 		GenerateBoard ();
 	}
-	
+	//Use ray
 	// Update is called once per frame
 	void Update () {
-		
+		UpdateMouseOver ();
+	}
+
+	private UpdateMouseOver(){
+		RaycastHit hit;
+		if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, 25.0f, LayerMask.GetMask)
 	}
 
 	void GenerateBoard(){ //generate board and pieces

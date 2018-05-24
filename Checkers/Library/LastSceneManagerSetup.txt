@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scene/checkers.unity
+- path: C:/Users/Zheng/Desktop/VR_CP/VR_CP/Assets/_scene/TS1.unity
   isLoaded: 1
   isActive: 1
