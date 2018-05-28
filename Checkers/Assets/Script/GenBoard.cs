@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GenBoard : MonoBehaviour {
 
-	public GameObject B_Tile;
-	public GameObject R_Tile;
+	public BoardSquare B_Tile;
+	public BoardSquare R_Tile;
 	public GameObject R_Piece;
 	public GameObject B_Piece;
-
-	public Vector2 mouseover;
+	public Piece[,] pieces = new Piece[8,8];
 
 	// Use this for initialization
 	void Start () {
@@ -17,14 +16,6 @@ public class GenBoard : MonoBehaviour {
 	}
 	//Use ray
 	// Update is called once per frame
-	void Update () {
-		UpdateMouseOver ();
-	}
-
-	private UpdateMouseOver(){
-		RaycastHit hit;
-		if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, 25.0f, LayerMask.GetMask)
-	}
 
 	void GenerateBoard(){ //generate board and pieces
 		for (int x = 0; x < 8; x++) {
@@ -32,18 +23,26 @@ public class GenBoard : MonoBehaviour {
 				for (int y = 0; y < 8; y++) {
 					//generate tiles
 					if (y % 2 == 0) {
-						GameObject Bt = (GameObject)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
+						BoardSquare Bt = (BoardSquare)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
 						Bt.transform.SetParent (this.transform);
+						Bt.SetValues(x,y,false);
 					}
 					if (y % 2 == 1) {
-						GameObject Rt = (GameObject)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
+						BoardSquare Rt = (BoardSquare)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
 						Rt.transform.SetParent (this.transform);
+						Rt.SetValues(x,y,true);
 						//generate pieces
 						if (y == 1) {
-							Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							GameObject cool =  Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							cool.transform.SetParent (transform);
+							Piece p = cool.GetComponent<Piece> ();
+							pieces [x, y] = p;
 						}
 						if (y>4) {
-							Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							GameObject cool = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							cool.transform.SetParent (transform);
+							Piece p = cool.GetComponent<Piece> ();
+							pieces [x, y] = p;
 						}
 					}
 				}
@@ -52,23 +51,33 @@ public class GenBoard : MonoBehaviour {
 				for (int y = 0; y < 8; y++) {
 					//generate tiles
 					if (y % 2 == 0) {
-						GameObject Rt = (GameObject)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
+						BoardSquare Rt = (BoardSquare)(Instantiate (R_Tile, new Vector3 (x, 0, y), Quaternion.identity));
 						Rt.transform.SetParent (this.transform);
+						Rt.SetValues(x,y,true);
 						//generate pieces
 						if (y < 3) {
-							Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							cool.transform.SetParent (transform);
+							Piece p = cool.GetComponent<Piece> ();
+							pieces [x, y] = p;
 						}
 						if (y == 6) {
-							Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							GameObject cool  = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity);
+							cool.transform.SetParent (transform);
+							Piece p = cool.GetComponent<Piece> ();
+							pieces [x, y] = p;
 						}
 					}
 					if (y % 2 == 1) {
-						GameObject Bt = (GameObject)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
+						BoardSquare Bt = (BoardSquare)(Instantiate (B_Tile, new Vector3 (x, 0, y), Quaternion.identity));
 						Bt.transform.SetParent (this.transform);
+						Bt.SetValues(x,y,false);
 					}
 				}
 			}
 		}
 	}
+
+
 
 }

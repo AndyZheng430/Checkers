@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class move : MonoBehaviour {
-
+	/*
 	public GameObject RLight;
 	public GameObject m1;
 	public GameObject m2;
@@ -88,7 +88,7 @@ public class move : MonoBehaviour {
 				}
 			}
 		}
-	}
+	}*/
 
 	/*void OnMouseDown(){
 		if (Input.GetMouseButtonDown (0) && gameObject.CompareTag ("Black")) {
