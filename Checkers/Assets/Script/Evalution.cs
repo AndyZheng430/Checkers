@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameDecider : MonoBehaviour {
+public class Evalution : MonoBehaviour {
 
 	//array of red pieces 
 	public GameObject[] Reds;
