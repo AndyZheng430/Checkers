@@ -40,7 +40,38 @@ public class Evalution : MonoBehaviour {
 		BlackKings = GameObject.FindGameObjectsWithTag ("BlackK");
 
 	}
-		
+	//minmax algorithm 
+	void MinMax(int depth, Checkers game, int alpha, int beta, bool Turn){
+		if (depth == 0 && Turn == true) {//computer 
+			Evalution (1);
+		} else if (depth == 0 && Turn == false) {//person
+			Evalution (0);
+		}
+		if (Turn) { //computer
+			int bestMove = -9999;
+			for (int i = 0; i < newMove.length; i++) { //newMove is an array contains possible moves 
+				game.possibleMove (newMove [i]);
+				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, !Turn));
+				alpha = Mathf.Max (alpha, bestMove);
+				if (beta <= alpha) {
+					return bestMove;
+				}
+			} 
+			return bestMove;
+		} else { //
+			int bestMove = 9999;
+			for (int i = 0; i < newMove.length; i++) { //newMove is an array contains possible moves 
+				game.possibleMove (newMove [i]);
+				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, !Turn));
+				beta = Mathf.Max (beta, bestMove);
+				if (beta <= alpha) {
+					return bestMove;
+				}
+			} 
+			return bestMove;
+		}
+	}
+	//evaluate board for players
 	void Evaluation(int PlayTurn){
 		// takes values of red pieces on the board
 		RPValue = Reds.Length + 10*(RedKings.Length); 
