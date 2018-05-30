@@ -268,7 +268,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1241897458}
   - component: {fileID: 1241897457}
-  - component: {fileID: 1241897459}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -291,6 +290,14 @@ MonoBehaviour:
   R_Tile: {fileID: 1469609961682020, guid: 540d4e7c102455d488eb5ca22107733b, type: 2}
   R_Piece: {fileID: 1332040095083596, guid: 2397ea4f397bfff45a6fc73e1ef96ffb, type: 2}
   B_Piece: {fileID: 1570228990888200, guid: 7c4f24ac5cdd40a46a878facd7a39ffa, type: 2}
+  selectedPiece: {fileID: 0}
+  mouseOver: {x: 0, y: 0}
+  startDrag: {x: 0, y: 0}
+  endDrag: {x: 0, y: 0}
+  forcedPieces: []
+  isRedTurn: 0
+  isRed: 0
+  hasCap: 0
 --- !u!4 &1241897458
 Transform:
   m_ObjectHideFlags: 0
@@ -304,22 +311,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1241897459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1241897456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62dfcce645e8c5b41bcf540ff150ab70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Reds: []
-  RedKings: []
-  Blacks: []
-  BlackKings: []
-  RPValue: 0
-  BPValue: 0
-  RTotal: 0
-  BTotal: 0

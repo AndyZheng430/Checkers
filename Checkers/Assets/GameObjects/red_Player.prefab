@@ -21,10 +21,11 @@ GameObject:
   - component: {fileID: 4552758425346462}
   - component: {fileID: 33958087824838038}
   - component: {fileID: 136821206033672804}
+  - component: {fileID: 114643940361901332}
   - component: {fileID: 23077216729321606}
   m_Layer: 0
   m_Name: red_Player
-  m_TagString: Red
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,6 +84,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332040095083596}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114643940361901332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332040095083596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701e8f5ecfd938e40bc709a4d61c58c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRed: 1
+  isKing: 0
 --- !u!136 &136821206033672804
 CapsuleCollider:
   m_ObjectHideFlags: 1

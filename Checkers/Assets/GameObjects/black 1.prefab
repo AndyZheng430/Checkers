@@ -21,11 +21,11 @@ GameObject:
   - component: {fileID: 4566439213785188}
   - component: {fileID: 33822505435707934}
   - component: {fileID: 136044734294586844}
-  - component: {fileID: 114407791099118200}
+  - component: {fileID: 114875710204594142}
   - component: {fileID: 23180934578026560}
   m_Layer: 0
   m_Name: black 1
-  m_TagString: Black
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1570228990888200}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114407791099118200
+--- !u!114 &114875710204594142
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -92,17 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1570228990888200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0431dc6e8a275f340a47d9ffd4dbb482, type: 3}
+  m_Script: {fileID: 11500000, guid: 701e8f5ecfd938e40bc709a4d61c58c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RLight: {fileID: 1534676706122538, guid: 9425b3c5937a4264b9478b05ed4f6341, type: 2}
-  m1: {fileID: 0}
-  m2: {fileID: 0}
-  pos: {x: 0, y: 0, z: 0}
-  Pmove1: {x: 0, y: 0, z: 0}
-  Pmove2: {x: 0, y: 0, z: 0}
-  Pmove3: {x: 0, y: 0, z: 0}
-  Pmove4: {x: 0, y: 0, z: 0}
+  isRed: 0
+  isKing: 0
 --- !u!136 &136044734294586844
 CapsuleCollider:
   m_ObjectHideFlags: 1

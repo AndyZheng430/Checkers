@@ -18,6 +18,7 @@ public class GenBoard : MonoBehaviour {
 	public List<Pieces> forcedPieces = new List<Pieces>();
 	public bool isRedTurn;
 	public bool isRed;
+	public bool hasCap;
 
 	// Use this for initialization
 	void Start () {
@@ -68,15 +69,23 @@ public class GenBoard : MonoBehaviour {
 			return;
 		}
 		Pieces p = Pieces [x, y];
-		if(p!=null){
-			selectedPiece = p;
-			startDrag = mouseOver;
+		if (p != null && p.isRed == isRed) {
+			if (forcedPieces.Count == 0) {
+				selectedPiece = p;
+				startDrag = mouseOver;
+			} else {
+				if (forcedPieces.Find (fp => fp == p) == null)
+					return;
+				selectedPiece = p;
+				startDrag = mouseOver;
+			}
 		}
 	}
 	void TryMove(int x1, int y1, int x2, int y2){
-		startDrag = new Vector2 (x1, y1);
+		forcedPieces = PossMove ();
+		/*startDrag = new Vector2 (x1, y1);
 		endDrag = new Vector2 (x2, y2);
-		selectedPiece = Pieces [x1, y1];
+		selectedPiece = Pieces [x1, y1];*/
 
 		//out of bounds check
 		MovePiece (selectedPiece, x2, y2);
@@ -96,12 +105,20 @@ public class GenBoard : MonoBehaviour {
 				return;
 			}
 			if (selectedPiece.ValidMove (Pieces, x1, y1, x2, y2)) {
-				if (Mathf.Abs (x2 - x2) == 2) {
+				if (Mathf.Abs (x2 - x1) == 2) {
 					Pieces p = Pieces [(x1 + x2) / 2, (y1 + y2) / 2];
 					if (p != null) {
 						Pieces [(x1 + x2) / 2, (y1 + y2) / 2] = null;
-						Destroy (p);
+						DestroyImmediate (p.gameObject);
+						hasCap = true;
 					}
+				}
+
+				if (forcedPieces.Count != 0&&!hasCap) {
+					MovePiece (selectedPiece, x1, y1);
+					selectedPiece = null;
+					startDrag = Vector2.zero;
+					return;
 				}
 				Pieces [x2, y2] = selectedPiece;
 				Pieces [x1, y1] = null;
@@ -123,13 +140,25 @@ public class GenBoard : MonoBehaviour {
 		startDrag = Vector2.zero;
 
 		isRedTurn = !isRedTurn;
+		hasCap = false;
 		checkVictory ();
 	}
 	void checkVictory(){
 	
 	}
-	public List<Pieces> PossMove(){
+	List<Pieces> PossMove(){
 		forcedPieces = new List<Pieces>();
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (Pieces [i, j] != null && Pieces [i, j].isRed == isRedTurn) {
+					if (Pieces [i, j].isForceMove (Pieces, i, j)) {
+						forcedPieces.Add (Pieces [i, j]);
+					}
+				}
+			}
+		}
+		return forcedPieces;
 	}
 	void MovePiece(Pieces p, int x, int y){
 		p.transform.position = (Vector3.right * x) + (Vector3.forward * y);
