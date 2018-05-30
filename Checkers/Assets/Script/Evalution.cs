@@ -41,7 +41,7 @@ public class Evalution : MonoBehaviour {
 
 	}
 	//minmax algorithm 
-	void MinMax(int depth, Checkers game, int alpha, int beta, bool Turn){
+	/*void MinMax(int depth, Checkers game, int alpha, int beta, bool Turn){
 		if (depth == 0 && Turn == true) {//computer 
 			Evalution (1);
 		} else if (depth == 0 && Turn == false) {//person
@@ -70,7 +70,7 @@ public class Evalution : MonoBehaviour {
 			} 
 			return bestMove;
 		}
-	}
+	}*/
 	//evaluate board for players
 	void Evaluation(int PlayTurn){
 		// takes values of red pieces on the board
