@@ -295,8 +295,8 @@ MonoBehaviour:
   startDrag: {x: 0, y: 0}
   endDrag: {x: 0, y: 0}
   forcedPieces: []
-  isRedTurn: 0
-  isRed: 0
+  isRedTurn: 1
+  isRed: 1
   hasCap: 0
 --- !u!4 &1241897458
 Transform:

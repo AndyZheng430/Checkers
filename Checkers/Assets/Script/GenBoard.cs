@@ -27,17 +27,19 @@ public class GenBoard : MonoBehaviour {
 	}
 	void Update(){
 		UpdateMouseOver ();
-
-		if (selectedPiece != null) {
-			UpdatePieceDrag (selectedPiece);
-		}
-		int x = (int)mouseOver.x;
-		int y = (int)mouseOver.y;
-		if (Input.GetMouseButtonDown (0)) {
-			SelectPiece (x, y);
-		}
-		if (Input.GetMouseButtonUp (0)) {
-			TryMove((int) (startDrag.x), (int) (startDrag.y), x, y);
+		if (isRed ? isRedTurn : !isRedTurn) {
+			
+			if (selectedPiece != null) {
+				UpdatePieceDrag (selectedPiece);
+			}
+			int x = (int)mouseOver.x;
+			int y = (int)mouseOver.y;
+			if (Input.GetMouseButtonDown (0)) {
+				SelectPiece (x, y);
+			}
+			if (Input.GetMouseButtonUp (0)) {
+				TryMove ((int)(startDrag.x), (int)(startDrag.y), x, y);
+			}
 		}
 	}
 	//Use ray
@@ -136,16 +138,64 @@ public class GenBoard : MonoBehaviour {
 
 	}
 	void EndTurn(){
+		int x = (int)endDrag.x;
+		int y = (int)endDrag.y;
+
+		if (selectedPiece != null && selectedPiece.isRed && !selectedPiece.isKing && y == 7) {
+			selectedPiece.isKing = true;
+			selectedPiece.tag = "RedK";
+		} else if (selectedPiece != null && !selectedPiece.isRed && !selectedPiece.isKing && y == 0) {
+			selectedPiece.isKing = true;
+			selectedPiece.tag = "BlackK";
+		}
 		selectedPiece = null;
 		startDrag = Vector2.zero;
 
+		if (PossMove (selectedPiece, x, y).Count != 0 && hasCap) {
+			return;
+		}
+
+		isRed = !isRed;
 		isRedTurn = !isRedTurn;
 		hasCap = false;
 		checkVictory ();
 	}
 	void checkVictory(){
-	
+		Pieces[] piece = FindObjectsOfType<Pieces> ();
+		bool hasRed = false; 
+		bool hasBlack = false;
+		for (int i = 0; i < piece.Length; i++) {
+			if (piece [i].isRed) {
+				hasRed = true;
+			} else {
+				hasBlack = true;
+			}
+		}
+		if (!hasRed) {
+			victory (false);
+		}
+		if (!hasBlack) {
+			victory (true);
+		}
 	}
+	void victory(bool isRed){
+		if (isRed) {
+			Debug.Log ("you win");
+		}
+		if (!isRed) {
+			Debug.Log("you lose");
+		}
+	}
+	List<Pieces> PossMove(Pieces p, int x, int y){
+		forcedPieces = new List<Pieces> ();
+
+		if (Pieces [x, y].isForceMove (Pieces, x, y)) {
+			forcedPieces.Add (Pieces [x, y]);
+		}
+
+		return forcedPieces;
+	}
+
 	List<Pieces> PossMove(){
 		forcedPieces = new List<Pieces>();
 
@@ -219,7 +269,5 @@ public class GenBoard : MonoBehaviour {
 			}
 		}
 	}
-
-
-
 }
+
