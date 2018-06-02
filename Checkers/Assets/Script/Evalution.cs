@@ -41,17 +41,22 @@ public class Evalution : MonoBehaviour {
 
 	}
 	//minmax algorithm 
-	/*void MinMax(int depth, Checkers game, int alpha, int beta, bool Turn){
+	public int MinMax(int depth, GenBoard game, int alpha, int beta, bool Turn){
 		if (depth == 0 && Turn == true) {//computer 
-			Evalution (1);
+			return Evaluation (1);
 		} else if (depth == 0 && Turn == false) {//person
-			Evalution (0);
+			return Evaluation (0);
 		}
+
+		Pieces[] newMoves = game.PossMove();
 		if (Turn) { //computer
 			int bestMove = -9999;
-			for (int i = 0; i < newMove.length; i++) { //newMove is an array contains possible moves 
-				game.possibleMove (newMove [i]);
-				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, !Turn));
+			for (int i = 0; i < newMoves.Length; i++) { //newMove is an array contains possible moves 
+				Vector2 start = game.startDrag;
+				Vector2 final = game.endDrag;
+				game.pseudoMove (newMoves [i], game.endDrag);
+				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+				game.undoMove(newMoves[i], game.startDrag);
 				alpha = Mathf.Max (alpha, bestMove);
 				if (beta <= alpha) {
 					return bestMove;
@@ -60,9 +65,10 @@ public class Evalution : MonoBehaviour {
 			return bestMove;
 		} else { //
 			int bestMove = 9999;
-			for (int i = 0; i < newMove.length; i++) { //newMove is an array contains possible moves 
-				game.possibleMove (newMove [i]);
-				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, !Turn));
+			for (int i = 0; i < newMove.Length; i++) { //newMove is an array contains possible moves 
+				game.pseudoMove (newMoves [i]);
+				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+				game.undoMove(newMoves[i]);
 				beta = Mathf.Max (beta, bestMove);
 				if (beta <= alpha) {
 					return bestMove;
@@ -70,9 +76,9 @@ public class Evalution : MonoBehaviour {
 			} 
 			return bestMove;
 		}
-	}*/
+	}
 	//evaluate board for players
-	void Evaluation(int PlayTurn){
+	public int Evaluation(int PlayTurn){
 		// takes values of red pieces on the board
 		RPValue = Reds.Length + 10*(RedKings.Length); 
 		// takes values of black pieces on the board
@@ -103,6 +109,7 @@ public class Evalution : MonoBehaviour {
 					TR_Eval (0, 2);
 				}
 			}
+			return RTotal;
 		} else if (PlayTurn == 1) { // evaluates for black
 			//evaluation of difference between black and red pieces
 			BTotal = BPValue - RPValue;
@@ -129,8 +136,9 @@ public class Evalution : MonoBehaviour {
 					TR_Eval (1, 2);
 				}
 			}
-
+			return BTotal;
 		}
+		return 0;
 	}
 	//1,0,1
 	void TR_Eval(int k, int value){ 

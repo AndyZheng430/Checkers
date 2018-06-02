@@ -41,6 +41,9 @@ public class GenBoard : MonoBehaviour {
 				TryMove ((int)(startDrag.x), (int)(startDrag.y), x, y);
 			}
 		}
+		if (isRed==false && isRedTurn==false) {
+			
+		}
 	}
 	//Use ray
 	void UpdateMouseOver(){ //allows click from camera
@@ -66,7 +69,7 @@ public class GenBoard : MonoBehaviour {
 			p.transform.position = hit.point + Vector3.up;
 		} 
 	}
-	void SelectPiece(int x, int y){
+	public void SelectPiece(int x, int y){
 		if (x < 0 || x >= 8 || y < 0 || y >= 8) {
 			return;
 		}
@@ -83,11 +86,19 @@ public class GenBoard : MonoBehaviour {
 			}
 		}
 	}
-	void TryMove(int x1, int y1, int x2, int y2){
+	public void pseudoMove (Pieces p, Vector2 v) {
+		MovePiece (p, (int)v.x, (int)v.y);
+	}
+
+	public void undoMove (Pieces p, Vector2 v) {
+		MovePiece (p, (int)v.x, (int)v.y);
+	}
+
+	public void TryMove(int x1, int y1, int x2, int y2){
 		forcedPieces = PossMove ();
-		/*startDrag = new Vector2 (x1, y1);
+		startDrag = new Vector2 (x1, y1);
 		endDrag = new Vector2 (x2, y2);
-		selectedPiece = Pieces [x1, y1];*/
+		selectedPiece = Pieces [x1, y1];
 
 		//out of bounds check
 		MovePiece (selectedPiece, x2, y2);
@@ -133,11 +144,10 @@ public class GenBoard : MonoBehaviour {
 				startDrag = Vector2.zero;
 				return;
 			}
-
 		}
 
 	}
-	void EndTurn(){
+	public void EndTurn(){
 		int x = (int)endDrag.x;
 		int y = (int)endDrag.y;
 
@@ -160,7 +170,7 @@ public class GenBoard : MonoBehaviour {
 		hasCap = false;
 		checkVictory ();
 	}
-	void checkVictory(){
+	public void checkVictory(){
 		Pieces[] piece = FindObjectsOfType<Pieces> ();
 		bool hasRed = false; 
 		bool hasBlack = false;
@@ -178,7 +188,7 @@ public class GenBoard : MonoBehaviour {
 			victory (true);
 		}
 	}
-	void victory(bool isRed){
+	public void victory(bool isRed){
 		if (isRed) {
 			Debug.Log ("you win");
 		}
@@ -186,17 +196,18 @@ public class GenBoard : MonoBehaviour {
 			Debug.Log("you lose");
 		}
 	}
-	List<Pieces> PossMove(Pieces p, int x, int y){
+	public List<Pieces> PossMove(Pieces p, int x, int y){
 		forcedPieces = new List<Pieces> ();
 
 		if (Pieces [x, y].isForceMove (Pieces, x, y)) {
+			Debug.Log (x + " +" + y);
 			forcedPieces.Add (Pieces [x, y]);
 		}
 
 		return forcedPieces;
 	}
 
-	List<Pieces> PossMove(){
+	public List<Pieces> PossMove(){
 		forcedPieces = new List<Pieces>();
 
 		for (int i = 0; i < 8; i++) {
@@ -210,10 +221,11 @@ public class GenBoard : MonoBehaviour {
 		}
 		return forcedPieces;
 	}
-	void MovePiece(Pieces p, int x, int y){
+	public void MovePiece(Pieces p, int x, int y){
+		Debug.Log (x + ", " + y);
 		p.transform.position = (Vector3.right * x) + (Vector3.forward * y);
 	}
-	void GenerateBoard(){ //generate board and pieces
+	public void GenerateBoard(){ //generate board and pieces
 		for (int x = 0; x < 8; x++) {
 			if (x % 2 == 0) {
 				for (int y = 0; y < 8; y++) {
