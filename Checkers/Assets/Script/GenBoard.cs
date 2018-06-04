@@ -42,7 +42,9 @@ public class GenBoard : MonoBehaviour {
 			}
 		}
 		if (isRed==false && isRedTurn==false) {
-			
+			for (int i = 0; i < forcedPieces.Count; i++) {
+				
+			}
 		}
 	}
 	//Use ray

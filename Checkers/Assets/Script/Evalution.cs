@@ -48,10 +48,10 @@ public class Evalution : MonoBehaviour {
 			return Evaluation (0);
 		}
 
-		Pieces[] newMoves = game.PossMove();
+		List<Pieces> newMoves = game.PossMove();
 		if (Turn) { //computer
-			int bestMove = -9999;
-			for (int i = 0; i < newMoves.Length; i++) { //newMove is an array contains possible moves 
+			int bestMove = -9999; 
+			for (int i = 0; i < newMoves.Count; i++) { //newMove is an array contains possible moves 
 				Vector2 start = game.startDrag;
 				Vector2 final = game.endDrag;
 				game.pseudoMove (newMoves [i], game.endDrag);
@@ -65,11 +65,13 @@ public class Evalution : MonoBehaviour {
 			return bestMove;
 		} else { //
 			int bestMove = 9999;
-			for (int i = 0; i < newMove.Length; i++) { //newMove is an array contains possible moves 
-				game.pseudoMove (newMoves [i]);
-				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
-				game.undoMove(newMoves[i]);
-				beta = Mathf.Max (beta, bestMove);
+			for (int i = 0; i < newMoves.Count; i++) { //newMove is an array contains possible moves 
+				Vector2 start = game.startDrag;
+				Vector2 final = game.endDrag;
+				game.pseudoMove (newMoves [i], game.endDrag);
+				bestMove = Mathf.Min (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+				game.undoMove(newMoves[i], game.startDrag);
+				beta = Mathf.Min (beta, bestMove);
 				if (beta <= alpha) {
 					return bestMove;
 				}
