@@ -42,8 +42,9 @@ public class GenBoard : MonoBehaviour {
 			}
 		}
 		if (isRed==false && isRedTurn==false) {
-			for (int i = 0; i < forcedPieces.Count; i++) {
-				
+			int mm = MinMax (5, this, alpha, beta, true);//get minmax value
+			foreach(int i = 0; i<forcedPieces.Count; i++){//finds move with that value and does it 
+				if(forcedPieces[i].
 			}
 		}
 	}
