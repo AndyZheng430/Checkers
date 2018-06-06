@@ -43,6 +43,10 @@ public class GenBoard : MonoBehaviour {
 		}
 		if (isRed==false && isRedTurn==false) {
 			//needs to get the move from minmax and piece then move the piece to position 
+
+			Pieces chosenOne; //piece chosen
+			Vector2 finalMove; // insert endDrag given by minmax
+			TryMove((int)chosenOne.transform.position.x, (int)chosenOne.transform.position.y, (int)finalMove.x, (int)finalMove.y);
 		}
 	}
 	//Use ray
