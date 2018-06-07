@@ -289,7 +289,7 @@ MonoBehaviour:
   B_Tile: {fileID: 1630745130488462, guid: 94d14bf378a0c754dbcfaf2445d8ee54, type: 2}
   R_Tile: {fileID: 1469609961682020, guid: 540d4e7c102455d488eb5ca22107733b, type: 2}
   R_Piece: {fileID: 1332040095083596, guid: 2397ea4f397bfff45a6fc73e1ef96ffb, type: 2}
-  B_Piece: {fileID: 1570228990888200, guid: 7c4f24ac5cdd40a46a878facd7a39ffa, type: 2}
+  B_Piece: {fileID: 1281515969128558, guid: bcb001ffefb544f45b1098738a1f3809, type: 2}
   selectedPiece: {fileID: 0}
   mouseOver: {x: 0, y: 0}
   startDrag: {x: 0, y: 0}

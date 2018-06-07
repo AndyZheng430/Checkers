@@ -18,7 +18,7 @@ public class GenBoard : MonoBehaviour {
 	public List<Pieces> forcedPieces = new List<Pieces>();
 	public bool isRedTurn;
 	public bool isRed;
-	public bool hasCap;
+	public bool hasCap; 
 
 	// Use this for initialization
 	void Start () {
@@ -43,9 +43,9 @@ public class GenBoard : MonoBehaviour {
 		}
 		if (isRed==false && isRedTurn==false) {
 			//needs to get the move from minmax and piece then move the piece to position 
-
-			Pieces chosenOne; //piece chosen
-			Vector2 finalMove; // insert endDrag given by minmax
+			List<Pieces> chose = PossMove();
+			Pieces chosenOne = chose[gameObject.GetComponent<Evalution>().MinMax(3, this, -9999, 9999, true)]; //piece chosen
+			Vector2 finalMove = endDrag; // insert endDrag given by minmax
 			TryMove((int)chosenOne.transform.position.x, (int)chosenOne.transform.position.y, (int)finalMove.x, (int)finalMove.y);
 		}
 	}
@@ -157,9 +157,11 @@ public class GenBoard : MonoBehaviour {
 
 		if (selectedPiece != null && selectedPiece.isRed && !selectedPiece.isKing && y == 7) {
 			selectedPiece.isKing = true;
+			selectedPiece.transform.Rotate (180, 0, 0);
 			selectedPiece.tag = "RedK";
 		} else if (selectedPiece != null && !selectedPiece.isRed && !selectedPiece.isKing && y == 0) {
 			selectedPiece.isKing = true;
+			selectedPiece.transform.Rotate (180, 0, 0);
 			selectedPiece.tag = "BlackK";
 		}
 		selectedPiece = null;
@@ -206,7 +208,7 @@ public class GenBoard : MonoBehaviour {
 		if (Pieces [x, y].isForceMove (Pieces, x, y)) {
 			Debug.Log (x + " +" + y);
 			forcedPieces.Add (Pieces [x, y]);
-		}
+				}
 
 		return forcedPieces;
 	}

@@ -49,34 +49,41 @@ public class Evalution : MonoBehaviour {
 		}
 
 		List<Pieces> newMoves = game.PossMove();
+		int placement = 0;
 		if (Turn) { //computer
 			int bestMove = -9999; 
 			for (int i = 0; i < newMoves.Count; i++) { //newMove is an array contains possible moves 
 				Vector2 start = game.startDrag;
 				Vector2 final = game.endDrag;
 				game.pseudoMove (newMoves [i], game.endDrag);
-				bestMove = Mathf.Max (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
-				game.undoMove(newMoves[i], game.startDrag);
+				if (bestMove < MinMax (depth - 1, game, alpha, beta, !Turn)) {
+					bestMove = Mathf.Max (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+					placement = i;
+				}
+				game.undoMove (newMoves [i], game.startDrag);
 				alpha = Mathf.Max (alpha, bestMove);
 				if (beta <= alpha) {
-					return bestMove;
+					return placement;
 				}
 			} 
-			return bestMove;
+			return placement;
 		} else { //
 			int bestMove = 9999;
 			for (int i = 0; i < newMoves.Count; i++) { //newMove is an array contains possible moves 
 				Vector2 start = game.startDrag;
 				Vector2 final = game.endDrag;
 				game.pseudoMove (newMoves [i], game.endDrag);
-				bestMove = Mathf.Min (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+				if (bestMove > MinMax (depth - 1, game, alpha, beta, !Turn)) {
+					bestMove = Mathf.Min (bestMove, MinMax (depth - 1, game, alpha, beta, !Turn));
+					placement = i;
+				}
 				game.undoMove(newMoves[i], game.startDrag);
 				beta = Mathf.Min (beta, bestMove);
 				if (beta <= alpha) {
-					return bestMove;
+					return placement;
 				}
 			} 
-			return bestMove;
+			return placement;
 		}
 	}
 	//evaluate board for players
