@@ -63,6 +63,7 @@ public class Evalution : MonoBehaviour {
 				game.undoMove (newMoves [i], game.startDrag);
 				alpha = Mathf.Max (alpha, bestMove);
 				if (beta <= alpha) {
+					Debug.Log ("placement"+placement);
 					return placement;
 				}
 			} 
@@ -80,9 +81,11 @@ public class Evalution : MonoBehaviour {
 				game.undoMove(newMoves[i], game.startDrag);
 				beta = Mathf.Min (beta, bestMove);
 				if (beta <= alpha) {
+					Debug.Log ("placement" + placement);
 					return placement;
 				}
 			} 
+			Debug.Log ("placement" + placement);
 			return placement;
 		}
 	}

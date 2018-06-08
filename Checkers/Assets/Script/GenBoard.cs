@@ -20,6 +20,7 @@ public class GenBoard : MonoBehaviour {
 	public bool isRed;
 	public bool hasCap; 
 
+
 	// Use this for initialization
 	void Start () {
 		GenerateBoard ();
@@ -44,7 +45,14 @@ public class GenBoard : MonoBehaviour {
 		if (isRed==false && isRedTurn==false) {
 			//needs to get the move from minmax and piece then move the piece to position 
 			List<Pieces> chose = PossMove();
-			Pieces chosenOne = chose[gameObject.GetComponent<Evalution>().MinMax(3, this, -9999, 9999, true)]; //piece chosen
+			Pieces chosenOne; 
+			int val = gameObject.GetComponent<Evalution> ().MinMax (3, this, -9999, 9999, true);
+			if (0 < val && val < chose.Count) {
+				chosenOne = chose [gameObject.GetComponent<Evalution> ().MinMax (3, this, -9999, 9999, true)];
+			} else {
+				System.Random r = new System.Random ();
+				chosenOne = chose[r.Next(0,chose.Count - 1)];
+			}
 			Vector2 finalMove = endDrag; // insert endDrag given by minmax
 			TryMove((int)chosenOne.transform.position.x, (int)chosenOne.transform.position.y, (int)finalMove.x, (int)finalMove.y);
 		}
@@ -215,16 +223,21 @@ public class GenBoard : MonoBehaviour {
 
 	public List<Pieces> PossMove(){
 		forcedPieces = new List<Pieces>();
-
+		Debug.Log (Pieces);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
+				//Debug.Log ("Piece i,j isn't null " + Pieces [i, j] != null);
+				//Debug.Log ((Pieces [i, j].isRed == isRedTurn));
 				if (Pieces [i, j] != null && Pieces [i, j].isRed == isRedTurn) {
 					if (Pieces [i, j].isForceMove (Pieces, i, j)) {
+						//Debug.Log(Pieces[i,j]);
 						forcedPieces.Add (Pieces [i, j]);
+
 					}
 				}
 			}
 		}
+		Debug.Log (forcedPieces.Count);
 		return forcedPieces;
 	}
 	public void MovePiece(Pieces p, int x, int y){
