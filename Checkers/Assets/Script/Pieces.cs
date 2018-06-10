@@ -7,6 +7,15 @@ public class Pieces : MonoBehaviour {
 	public bool isRed;
 	public bool isKing;
 
+    public void isColor() {
+        if (this.gameObject.CompareTag("Black") || this.gameObject.CompareTag("BlackK"))
+        {
+            isRed = false;
+        }
+        else if (this.gameObject.CompareTag("Red") || this.gameObject.CompareTag("RedK")) {
+            isRed = true;
+        }
+    }
 
 	public bool isForceMove(Pieces[,] board, int x, int y){
 		if (isRed || isKing) {

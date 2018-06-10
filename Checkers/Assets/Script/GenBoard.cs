@@ -10,7 +10,7 @@ public class GenBoard : MonoBehaviour {
 	public GameObject R_Piece;
 	public GameObject B_Piece;
 
-	public Pieces[,] Pieces = new Pieces[8,8];
+	public Pieces[,] Pieces1 = new Pieces[8,8];
 	public Pieces selectedPiece;
 	public Vector2 mouseOver;
 	public Vector2 startDrag;
@@ -85,7 +85,7 @@ public class GenBoard : MonoBehaviour {
 		if (x < 0 || x >= 8 || y < 0 || y >= 8) {
 			return;
 		}
-		Pieces p = Pieces [x, y];
+		Pieces p = Pieces1 [x, y];
 		if (p != null && p.isRed == isRed) {
 			if (forcedPieces.Count == 0) {
 				selectedPiece = p;
@@ -110,7 +110,7 @@ public class GenBoard : MonoBehaviour {
 		forcedPieces = PossMove ();
 		startDrag = new Vector2 (x1, y1);
 		endDrag = new Vector2 (x2, y2);
-		selectedPiece = Pieces [x1, y1];
+		selectedPiece = Pieces1 [x1, y1];
 
 		//out of bounds check
 		MovePiece (selectedPiece, x2, y2);
@@ -129,11 +129,11 @@ public class GenBoard : MonoBehaviour {
 				startDrag = Vector2.zero;
 				return;
 			}
-			if (selectedPiece.ValidMove (Pieces, x1, y1, x2, y2)) {
+			if (selectedPiece.ValidMove (Pieces1, x1, y1, x2, y2)) {
 				if (Mathf.Abs (x2 - x1) == 2) {
-					Pieces p = Pieces [(x1 + x2) / 2, (y1 + y2) / 2];
+					Pieces p = Pieces1 [(x1 + x2) / 2, (y1 + y2) / 2];
 					if (p != null) {
-						Pieces [(x1 + x2) / 2, (y1 + y2) / 2] = null;
+						Pieces1 [(x1 + x2) / 2, (y1 + y2) / 2] = null;
 						DestroyImmediate (p.gameObject);
 						hasCap = true;
 					}
@@ -145,8 +145,8 @@ public class GenBoard : MonoBehaviour {
 					startDrag = Vector2.zero;
 					return;
 				}
-				Pieces [x2, y2] = selectedPiece;
-				Pieces [x1, y1] = null;
+				Pieces1 [x2, y2] = selectedPiece;
+				Pieces1 [x1, y1] = null;
 				MovePiece (selectedPiece, x2, y2);
 
 				EndTurn ();
@@ -211,33 +211,32 @@ public class GenBoard : MonoBehaviour {
 		}
 	}
 	public List<Pieces> PossMove(Pieces p, int x, int y){
-		forcedPieces = new List<Pieces> ();
+		List<Pieces>forcedPieces = new List<Pieces> ();
 
-		if (Pieces [x, y].isForceMove (Pieces, x, y)) {
-			Debug.Log (x + " +" + y);
-			forcedPieces.Add (Pieces [x, y]);
-				}
+		if (Pieces1 [x, y].isForceMove (Pieces1, x, y)) {
+			//Debug.Log (x + " +" + y);
+			forcedPieces.Add (Pieces1 [x, y]);
+			}
 
 		return forcedPieces;
 	}
 
 	public List<Pieces> PossMove(){
-		forcedPieces = new List<Pieces>();
-		Debug.Log (Pieces);
+		List<Pieces> forcedPieces = new List<Pieces>();
+		//Debug.Log (Pieces1);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				//Debug.Log ("Piece i,j isn't null " + Pieces [i, j] != null);
 				//Debug.Log ((Pieces [i, j].isRed == isRedTurn));
-				if (Pieces [i, j] != null && Pieces [i, j].isRed == isRedTurn) {
-					if (Pieces [i, j].isForceMove (Pieces, i, j)) {
+				if (Pieces1 [i, j] != null && Pieces1 [i, j].isRed == isRedTurn) {
+					if (Pieces1 [i, j].isForceMove (Pieces1, i, j)) {
 						//Debug.Log(Pieces[i,j]);
-						forcedPieces.Add (Pieces [i, j]);
-
+						forcedPieces.Add (Pieces1 [i, j]);
 					}
 				}
 			}
 		}
-		Debug.Log (forcedPieces.Count);
+		Debug.Log ("number of pieces in list " + forcedPieces.Count);
 		return forcedPieces;
 	}
 	public void MovePiece(Pieces p, int x, int y){
@@ -261,13 +260,13 @@ public class GenBoard : MonoBehaviour {
 							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
-							Pieces [x, y] = p;
+							Pieces1 [x, y] = p;
 						}
 						if (y>4) {
 							GameObject cool = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
-							Pieces [x, y] = p;
+							Pieces1 [x, y] = p;
 						}
 					}
 				}
@@ -283,13 +282,13 @@ public class GenBoard : MonoBehaviour {
 							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
-							Pieces [x, y] = p;
+							Pieces1 [x, y] = p;
 						}
 						if (y == 6) {
 							GameObject cool  = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
-							Pieces [x, y] = p;
+							Pieces1 [x, y] = p;
 						}
 					}
 					if (y % 2 == 1) {
@@ -299,6 +298,20 @@ public class GenBoard : MonoBehaviour {
 				}
 			}
 		}
+        //debugging();
 	}
+    public void debugging() {
+        for (int a = 0; a < 8; a++) {
+            for (int b = 0; b < 8; b++) {
+                if (Pieces1[a, b] != null)
+                {
+                    Debug.Log("not null " + a + "," + b);
+                }
+                else if (Pieces1[a, b] == null) {
+                    Debug.Log("null" + a + "," + b);
+                }
+            }
+        }
+    }
 }
 
