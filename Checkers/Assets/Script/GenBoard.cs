@@ -139,7 +139,7 @@ public class GenBoard : MonoBehaviour {
 					}
 				}
 
-				if (forcedPieces.Count != 0&&!hasCap) {
+				if (forcedPieces.Count != 0 && !hasCap) {
 					MovePiece (selectedPiece, x1, y1);
 					selectedPiece = null;
 					startDrag = Vector2.zero;
@@ -216,7 +216,7 @@ public class GenBoard : MonoBehaviour {
 		if (Pieces1 [x, y].isForceMove (Pieces1, x, y)) {
 			//Debug.Log (x + " +" + y);
 			forcedPieces.Add (Pieces1 [x, y]);
-			}
+		}
 
 		return forcedPieces;
 	}
@@ -226,17 +226,35 @@ public class GenBoard : MonoBehaviour {
 		//Debug.Log (Pieces1);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				//Debug.Log ("Piece i,j isn't null " + Pieces [i, j] != null);
-				//Debug.Log ((Pieces [i, j].isRed == isRedTurn));
+                //Debug.Log ("Piece i,j isn't null " + Pieces [i, j] != null);
 				if (Pieces1 [i, j] != null && Pieces1 [i, j].isRed == isRedTurn) {
-					if (Pieces1 [i, j].isForceMove (Pieces1, i, j)) {
-						//Debug.Log(Pieces[i,j]);
-						forcedPieces.Add (Pieces1 [i, j]);
+                    Debug.Log(Pieces1[i, j].isForceMove(Pieces1, i, j));
+                    if (Pieces1 [i, j].isForceMove (Pieces1, i, j)) {
+                        Pieces p1 = Pieces1[i, j];
+						forcedPieces.Add (p1);
 					}
 				}
 			}
 		}
-		Debug.Log ("number of pieces in list " + forcedPieces.Count);
+        if (forcedPieces.Count == 0 && isRedTurn == false)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (Pieces1[i, j] != null && Pieces1[i, j].isRed == isRedTurn)
+                    {
+                        if (Pieces1[i, j].isNotForceMove(Pieces1, i, j))
+                        {
+                            Debug.Log(Pieces1[i, j].isNotForceMove(Pieces1, i, j));
+                            Pieces p1 = Pieces1[i, j];
+                            forcedPieces.Add(p1);
+                        }
+                    }
+                }
+            }
+        }
+        Debug.Log ("number of pieces in list " + forcedPieces.Count);
 		return forcedPieces;
 	}
 	public void MovePiece(Pieces p, int x, int y){
@@ -257,13 +275,13 @@ public class GenBoard : MonoBehaviour {
 						Rt.transform.SetParent (this.transform);
 						//generate pieces
 						if (y == 1) {
-							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
+							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
 							Pieces1 [x, y] = p;
 						}
 						if (y>4) {
-							GameObject cool = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
+							GameObject cool = Instantiate (B_Piece, new Vector3 (x, 0f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
 							Pieces1 [x, y] = p;
@@ -279,13 +297,13 @@ public class GenBoard : MonoBehaviour {
 						Rt.transform.SetParent (this.transform);
 						//generate pieces
 						if (y < 3) {
-							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
+							GameObject cool = Instantiate (R_Piece, new Vector3 (x, 0f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
 							Pieces1 [x, y] = p;
 						}
 						if (y == 6) {
-							GameObject cool  = Instantiate (B_Piece, new Vector3 (x, 0.1f, y), Quaternion.identity) as GameObject;
+							GameObject cool  = Instantiate (B_Piece, new Vector3 (x, 0f, y), Quaternion.identity) as GameObject;
 							cool.transform.SetParent (transform);
 							Pieces p = cool.GetComponent<Pieces> ();
 							Pieces1 [x, y] = p;
@@ -300,6 +318,7 @@ public class GenBoard : MonoBehaviour {
 		}
         //debugging();
 	}
+    //debugs Pieces1 array
     public void debugging() {
         for (int a = 0; a < 8; a++) {
             for (int b = 0; b < 8; b++) {
